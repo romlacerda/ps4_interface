@@ -11,15 +11,14 @@ import StarWars from '../../assets/games/star-wars.svg';
 
 const Home = () => {
   const [selectedBox, setSelectedBox] = useState(0);
-  const prevSelectedBoxRef = useRef();
   const baseX = 15;
   const baseWidth = 200;
   // const prevSelectedBox = usePrevious(selectedBox);
 
 
-  useEffect(() => {
-    prevSelectedBoxRef.current = selectedBox;
-  });
+  // useEffect(() => {
+  //   prevSelectedBoxRef.current = selectedBox;
+  // });
 
 
   function handleChangeBox(e) {
@@ -28,25 +27,19 @@ const Home = () => {
   }
 
   function handleChangeKey(e) {
-    if (e.keyCode !== 37 && e.keyCode !== 39) {
-      return;
+    const id = selectedBox;
+    if (e.keyCode === 39) {
+      setSelectedBox(id + 1);
     }
 
-    if (e.keyCode === 39) {
-      setSelectedBox(selectedBox + 1);
-    } else if (e.keyCode === 37) {
-      setSelectedBox(selectedBox - 1);
+    if (e.keyCode === 37) {
+      setSelectedBox(id - 1);
     }
   }
 
-  const cb = useCallback((e) => {
-    handleChangeKey(e);
-  }, []);
-
-  document.addEventListener('keydown', (e) => handleChangeKey(e));
-
   useEffect(() => {
     // const way = selectedBox > prevSelectedBox ? '-' : '+';
+    // console.log('renderizou', selectedBox);
     console.log('renderizou');
     const newX = selectedBox === 0 ? baseWidth : selectedBox * baseWidth;
     if (selectedBox === 0) {
@@ -54,7 +47,15 @@ const Home = () => {
     } else {
       document.getElementById('boxes').style.transform = `translate(calc(${baseX}% - ${newX}px), 0)`;
     }
+    console.log(selectedBox);
   }, [selectedBox]);
+
+  useEffect(() => {
+    document.addEventListener('keydown', handleChangeKey);
+    return () => {
+      document.removeEventListener('keydown', handleChangeKey);
+    };
+  });
 
 
   return (
