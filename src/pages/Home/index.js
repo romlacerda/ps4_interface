@@ -1,13 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Box from '../../components/Box/styles';
 import Wrapper from '../../components/Wrapper/styles';
-import { usePrevious } from '../../hooks';
+// import { usePrevious } from '../../hooks';
 
 const Home = () => {
   const [selectedBox, setSelectedBox] = useState(0);
   const prevSelectedBoxRef = useRef();
-  const baseX = 15;
-  const prevSelectedBox = usePrevious(selectedBox);
+  const baseX = 10;
+  const baseWidth = 270;
+  // const prevSelectedBox = usePrevious(selectedBox);
 
   useEffect(() => {
     prevSelectedBoxRef.current = selectedBox;
@@ -20,9 +21,13 @@ const Home = () => {
   }
 
   useEffect(() => {
-    const way = selectedBox > prevSelectedBox ? '-' : '+';
-    const newX = selectedBox === 0 ? baseX : selectedBox * baseX;
-    document.getElementById('boxes').style.transform = `translate(${way + newX}%, 0)`;
+    // const way = selectedBox > prevSelectedBox ? '-' : '+';
+    const newX = selectedBox === 0 ? baseWidth : selectedBox * baseWidth;
+    if (selectedBox === 0) {
+      document.getElementById('boxes').style.transform = `translate(${baseX}%, 0)`;
+    } else {
+      document.getElementById('boxes').style.transform = `translate(calc(${baseX}% - ${newX}px), 0)`;
+    }
   }, [selectedBox]);
 
 
@@ -32,16 +37,19 @@ const Home = () => {
   }
 
   return (
-    <Wrapper>
-      <div id="boxes" style={{ display: 'flex' }}>
-        <Box id={0} onClick={handleChangeBox} onKeyDown={handleChangeKey} selected={selectedBox === 0} />
-        <Box id={1} onClick={handleChangeBox} selected={selectedBox === 1} />
-        <Box id={2} onClick={handleChangeBox} selected={selectedBox === 2} />
-        <Box id={3} onClick={handleChangeBox} selected={selectedBox === 3} />
-        <Box id={4} onClick={handleChangeBox} selected={selectedBox === 4} />
-        <Box id={5} onClick={handleChangeBox} selected={selectedBox === 5} />
-      </div>
-    </Wrapper>
+    <>
+      <Wrapper>
+        <div id="boxes" style={{ display: 'flex' }}>
+          <Box id={0} onClick={handleChangeBox} onKeyDown={handleChangeKey} selected={selectedBox === 0} />
+          <Box id={1} onClick={handleChangeBox} selected={selectedBox === 1} />
+          <Box id={2} onClick={handleChangeBox} selected={selectedBox === 2} />
+          <Box id={3} onClick={handleChangeBox} selected={selectedBox === 3} />
+          <Box id={4} onClick={handleChangeBox} selected={selectedBox === 4} />
+          <Box id={5} onClick={handleChangeBox} selected={selectedBox === 5} />
+        </div>
+      </Wrapper>
+
+    </>
   );
 };
 
