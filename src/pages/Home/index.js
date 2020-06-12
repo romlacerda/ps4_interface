@@ -1,7 +1,7 @@
 import React, {
-  useState, useEffect, useRef, useCallback,
+  useState, useEffect,
 } from 'react';
-import Box from '../../components/Box/styles';
+import Box from '../../components/Box';
 import Wrapper from '../../components/Wrapper/styles';
 // import { usePrevious } from '../../hooks';
 import ResidentEvil from '../../assets/games/re-3.svg';
@@ -13,6 +13,7 @@ const Home = () => {
   const [selectedBox, setSelectedBox] = useState(0);
   const baseX = 15;
   const baseWidth = 200;
+  const gamesLength = 6;
   // const prevSelectedBox = usePrevious(selectedBox);
 
 
@@ -29,25 +30,33 @@ const Home = () => {
   function handleChangeKey(e) {
     const id = selectedBox;
     if (e.keyCode === 39) {
+      const newId = id + 1;
+
+      if (newId > gamesLength - 1) {
+        return;
+      }
       setSelectedBox(id + 1);
     }
 
     if (e.keyCode === 37) {
-      setSelectedBox(id - 1);
+      const newId = id - 1;
+
+      if (newId < 0) {
+        return;
+      }
+      setSelectedBox(newId);
     }
   }
 
   useEffect(() => {
     // const way = selectedBox > prevSelectedBox ? '-' : '+';
     // console.log('renderizou', selectedBox);
-    console.log('renderizou');
     const newX = selectedBox === 0 ? baseWidth : selectedBox * baseWidth;
     if (selectedBox === 0) {
       document.getElementById('boxes').style.transform = `translate(${baseX}%, 0)`;
     } else {
       document.getElementById('boxes').style.transform = `translate(calc(${baseX}% - ${newX}px), 0)`;
     }
-    console.log(selectedBox);
   }, [selectedBox]);
 
   useEffect(() => {
