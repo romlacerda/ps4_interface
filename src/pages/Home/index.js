@@ -8,10 +8,11 @@ import ResidentEvil from '../../assets/games/re-3.svg';
 import Fifa from '../../assets/games/fifa-20.svg';
 import PsPlus from '../../assets/games/plus-2.svg';
 import StarWars from '../../assets/games/star-wars.svg';
+import Icon from '../../assets/psn-icon.png';
 
 const Home = () => {
   const [selectedBox, setSelectedBox] = useState(0);
-  const baseX = 15;
+  const baseX = 3;
   const baseWidth = 200;
   const gamesLength = 6;
   // const prevSelectedBox = usePrevious(selectedBox);
@@ -69,6 +70,7 @@ const Home = () => {
 
   return (
     <>
+      <img src={Icon} alt="psn" width="30" />
       <Wrapper>
         <div id="boxes" style={{ display: 'flex', marginTop: '40px' }}>
           <Box id={0} onClick={handleChangeBox} selected={selectedBox === 0} image={PsPlus} />
