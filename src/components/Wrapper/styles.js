@@ -8,6 +8,7 @@ const Wrapper = styled.div`
   align-items: center;
   justify-content: center;
   /* margin-left: 15%; */
+  flex-direction: column;
 `;
 
 export default Wrapper;

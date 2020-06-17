@@ -6,8 +6,11 @@ const StyledBox = styled.div`
   background-color: blue;
   margin: 0.2%;
   transition: width 0.2s, height 0.2s;
-  border: ${(props) => (props.selected ? '1px solid #6eb1df' : 'none')};
-  box-shadow: ${(props) => (props.selected ? '0px 0px 10px #4775bf, 0px 0px 10px #4775bf inset' : 'none')};
+  /* border: ${(props) => (props.selected ? '1px solid #6eb1df' : 'none')}; */
+  border: ${(props) => (props.selected ? '3px solid #fff' : 'none')};
+  /* box-shadow: ${(props) => (props.selected ? '0px 0px 10px #4775bf, 0px 0px 10px #4775bf inset' : 'none')}; */
+  box-shadow: ${(props) => (props.selected ? '0px 0px 0px 2px #0e3983 inset' : 'none')};
+
   background-image: url(${(props) => props.image});
   background-position: 50%;
   background-size: cover;
@@ -15,7 +18,7 @@ const StyledBox = styled.div`
   align-items: flex-end;
 
   & > div {
-    background: black;
+    background: #0e3983;
     color: #FFF;
     display: ${(props) => (props.selected ? 'flex' : 'none')};
     align-items: center;
